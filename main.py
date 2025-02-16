@@ -22,6 +22,7 @@ def main():
 
     player = Player(constants.SCREEN_WIDTH / 2, constants.SCREEN_HEIGHT / 2)
     
+    
     while True:
         
         # time.tick(60)
@@ -32,6 +33,7 @@ def main():
             
         screen.fill("black")
         
+        player.update(dt)
         player.draw(screen)
         
         pygame.display.flip()
