@@ -3,7 +3,7 @@
 # throughout this file
 import pygame
 
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, GAME_STATE
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
@@ -24,6 +24,10 @@ def main():
     dt = 0
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    
+    font = pygame.font.Font(None, 36)
+    
+    # global SCORE
     
     #Create Groups
     updatable = pygame.sprite.Group()
@@ -49,6 +53,21 @@ def main():
             
         screen.fill("black")
         
+        # Prepare score text for display
+        score_text = font.render(f"Score: {GAME_STATE["score"]}", True, (225, 255, 255))
+        
+        # Get the width and height of the text
+        text_width = score_text.get_width()
+        # text_height = score_text.get_height()
+        
+        # Calculate top-center for text
+        screen_width = screen.get_width()
+        x_p = (screen_width // 2) - (text_width // 2)
+        y_p = 10
+        
+        # Draw the score
+        screen.blit(score_text, (x_p, y_p))
+        
         updatable.update(dt)
         
         # Collison Detection
@@ -64,6 +83,7 @@ def main():
                     print(f"Bullet hit asteroid at {asteroid.position}")
                     bullet.kill()
                     asteroid.split()
+                    # SCORE += 10
         
         for sprite in drawable:
             sprite.draw(screen)
