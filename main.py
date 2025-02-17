@@ -63,7 +63,7 @@ def main():
                 if bullet.collides_with(asteroid):
                     print(f"Bullet hit asteroid at {asteroid.position}")
                     bullet.kill()
-                    asteroid.kill()
+                    asteroid.split()
         
         for sprite in drawable:
             sprite.draw(screen)
