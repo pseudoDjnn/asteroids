@@ -40,8 +40,6 @@ def main():
     
     while True:
         
-        # time.tick(60)
-        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
@@ -49,6 +47,12 @@ def main():
         screen.fill("black")
         
         updatable.update(dt)
+        
+        # Collison Detection
+        for asteroid in asteroids:
+            if player.collides_with(asteroid):
+                print("Game Over!")
+                return # exit the program
         
         for sprite in drawable:
             sprite.draw(screen)
