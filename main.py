@@ -3,9 +3,10 @@
 # throughout this file
 import pygame
 
-from src.utils.constants import *
+from src.utils import *
 from src.entities import Player, Asteroid, Shot
 from src.systems import AsteroidField
+
 
 def main():
 
@@ -32,6 +33,7 @@ def main():
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
     bullets = pygame.sprite.Group()
+
     
     
     Asteroid.containers = (asteroids, updatable, drawable)
@@ -39,12 +41,14 @@ def main():
     Shot.containers = (bullets, updatable, drawable)
     
     asteroid_field = AsteroidField()
+
     
     updatable.add(player)
     drawable.add(player)
     
     while True:
         
+        # Event handling
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
@@ -68,7 +72,7 @@ def main():
         
         
         # Prepare lives text for display
-        lives_text = font.render(f"Lives: {GAME_STATE["lives"]}", True, (255, 255, 255))
+        lives_text = font.render(f"Lives: {GAME_STATE['lives']}", True, (255, 255, 255))
         
         # Get the width o lives
         lives_width = lives_text.get_width()
@@ -81,6 +85,8 @@ def main():
         screen.blit(lives_text, (lives_x_p, lives_y_p))
         
         updatable.update(dt)
+
+
         
         # Timer set for being invisible
         if GAME_STATE["invincible"]:
@@ -105,10 +111,13 @@ def main():
         for bullet in bullets:
             for asteroid in asteroids:
                 if bullet.collides_with(asteroid):
-                    print(f"Bullet hit asteroid at {asteroid.position}")
+                    # print(f"Bullet hit asteroid at {asteroid.position}")
                     bullet.kill()
-                    asteroid.split()
+                    
 
+                    asteroid.split()
+                    
+        
         
         for sprite in drawable:
             if sprite == player and GAME_STATE["invincible"]:
