@@ -7,24 +7,20 @@ from src.utils.constants import *
 class AsteroidField(pygame.sprite.Sprite):
     edges = [
         [
-            pygame.Vector2(1, 0),
-            lambda y: pygame.Vector2(-ASTEROID_MAX_RADIUS, y * SCREEN_HEIGHT),
+            pygame.Vector2(1, 0),  # Moving left from right edge
+            lambda y: pygame.Vector2(SCREEN_WIDTH + 2 * ASTEROID_MAX_RADIUS, y * SCREEN_HEIGHT),
         ],
         [
-            pygame.Vector2(-1, 0),
-            lambda y: pygame.Vector2(
-                SCREEN_WIDTH + ASTEROID_MAX_RADIUS, y * SCREEN_HEIGHT
-            ),
+            pygame.Vector2(-1, 0),  # Moving right from left edge
+            lambda y: pygame.Vector2(-2 * ASTEROID_MAX_RADIUS, y * SCREEN_HEIGHT),
         ],
         [
-            pygame.Vector2(0, 1),
-            lambda x: pygame.Vector2(x * SCREEN_WIDTH, -ASTEROID_MAX_RADIUS),
+            pygame.Vector2(0, 1),  # Moving up from bottom edge
+            lambda x: pygame.Vector2(x * SCREEN_WIDTH, SCREEN_HEIGHT + 2 * ASTEROID_MAX_RADIUS),
         ],
         [
-            pygame.Vector2(0, -1),
-            lambda x: pygame.Vector2(
-                x * SCREEN_WIDTH, SCREEN_HEIGHT + ASTEROID_MAX_RADIUS
-            ),
+            pygame.Vector2(0, -1),  # Moving down from top edge
+            lambda x: pygame.Vector2(x * SCREEN_WIDTH, -2 * ASTEROID_MAX_RADIUS),
         ],
     ]
 
@@ -48,4 +44,24 @@ class AsteroidField(pygame.sprite.Sprite):
             velocity = velocity.rotate(random.randint(-30, 30))
             position = edge[1](random.uniform(0, 1))
             kind = random.randint(1, ASTEROID_KINDS)
+
+
+            # Adjust position to account for the asteroid radius
+            radius = ASTEROID_MIN_RADIUS * kind
+            
+            if velocity.x > 0 :
+                position.x -= radius
+                # print(f"Spawning asteroid at position {position}, velocity {velocity}, radius {radius}")
+            elif velocity.x < 0:
+                position.x += radius
+                # print(f"Spawning asteroid at position {position}, velocity {velocity}, radius {radius}")
+            if velocity.y > 0 :
+                position.y -= radius
+                # print(f"Spawning asteroid at position {position}, velocity {velocity}, radius {radius}")
+            elif velocity.y < 0:
+                position.y += radius
+                # print(f"Spawning asteroid at position {position}, velocity {velocity}, radius {radius}")
+            
+
+            
             self.spawn(ASTEROID_MIN_RADIUS * kind, position, velocity)
