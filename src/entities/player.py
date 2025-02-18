@@ -6,7 +6,8 @@ from src.utils import (
     PLAYER_SPEED,
     PLAYER_SHOOT_COOLDOWN,
     SCREEN_WIDTH,
-    SCREEN_HEIGHT
+    SCREEN_HEIGHT,
+    MAX_SPEED
 )
 from src.entities import CircleShape
 from src.entities.shot import Shot
@@ -18,6 +19,7 @@ class Player(CircleShape):
     
     self.rotation = 0
     self.shot_timer = 0
+    self.velocity = pygame.Vector2(0, 0)
     
     # in the player class
   def triangle(self):
@@ -43,8 +45,18 @@ class Player(CircleShape):
     
   def move(self, dt):
 
+    # Get direction vector based on rotation
     forward = pygame.Vector2(0, 1).rotate(self.rotation)
-    self.position += forward * PLAYER_SPEED * dt
+    
+    # Apply acceleration in that direction
+    self.velocity += forward * PLAYER_SPEED * dt
+    
+    # Optional: Limit maximum speed
+    if self.velocity.length() > MAX_SPEED:
+      self.velocity.scale_to_length(MAX_SPEED)
+    
+    # Update position based on velocity
+    self.position += self.velocity * dt
     
     
   def shoot(self):
