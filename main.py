@@ -68,6 +68,19 @@ def main():
         # Draw the score
         screen.blit(score_text, (x_p, y_p))
         
+        
+        # Prepare lives text for display
+        lives_text = font.render(f"Lives: {GAME_STATE["lives"]}", True, (255, 255, 255))
+        
+        # Get the width o lives
+        lives_wdith = lives_text.get_width()
+
+        # Positioning for the font
+        lives_x_p = 10
+        
+        # Draw the lives
+        screen.blit(lives_text, (lives_x_p,))
+        
         updatable.update(dt)
         
         # Timer set for being invisible
@@ -99,7 +112,12 @@ def main():
 
         
         for sprite in drawable:
-            sprite.draw(screen)
+            if sprite == player and GAME_STATE["invincible"]:
+                # This is the flash
+                if int(GAME_STATE["invincible_timer"]* 13) % 2 == 0:
+                    sprite.draw(screen)
+            else:
+                sprite.draw(screen)   
         
         pygame.display.flip()
         
