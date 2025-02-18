@@ -2,7 +2,9 @@ SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 
 GAME_STATE = {
-  "score": 0
+  "score": 0,
+  "lives": 3,
+  "invincible": False
 }
 
 SMALL_ASTEROID_POINT = 5

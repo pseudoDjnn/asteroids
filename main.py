@@ -73,8 +73,14 @@ def main():
         # Collison Detection
         for asteroid in asteroids:
             if player.collides_with(asteroid):
-                print("Game Over!")
-                return # exit the program
+                if not GAME_STATE['invincible']:
+                    GAME_STATE["lives"] -= 1
+                    if GAME_STATE["lives"] > 0:
+                        player.respawn()
+                        GAME_STATE["invincible"] = True
+                    else:
+                        print("Game Over!")
+                        return # exit the program
             
         # Bullet-Asteroid detection
         for bullet in bullets:
@@ -83,7 +89,7 @@ def main():
                     print(f"Bullet hit asteroid at {asteroid.position}")
                     bullet.kill()
                     asteroid.split()
-                    # SCORE += 10
+
         
         for sprite in drawable:
             sprite.draw(screen)
