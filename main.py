@@ -3,11 +3,11 @@
 # throughout this file
 import pygame
 
-from constants import *
-from player import Player
-from asteroid import Asteroid
-from asteroidfield import AsteroidField
-from shot import Shot
+from src.utils.constants import *
+from src.entities.player import Player
+from src.entities.asteroid import Asteroid
+from src.systems.asteroidfield import AsteroidField
+from src.entities.shot import Shot
 
 def main():
 
