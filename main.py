@@ -73,13 +73,14 @@ def main():
         lives_text = font.render(f"Lives: {GAME_STATE["lives"]}", True, (255, 255, 255))
         
         # Get the width o lives
-        lives_wdith = lives_text.get_width()
+        lives_width = lives_text.get_width()
 
         # Positioning for the font
-        lives_x_p = 10
+        lives_x_p = screen_width - lives_width - 10
+        lives_y_p = 10
         
         # Draw the lives
-        screen.blit(lives_text, (lives_x_p,))
+        screen.blit(lives_text, (lives_x_p, lives_y_p))
         
         updatable.update(dt)
         
