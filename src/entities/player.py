@@ -1,7 +1,14 @@
 import pygame
 
-from src.utils.constants import *
-from src.entities.circleshape import CircleShape
+from src.utils import (
+    PLAYER_RADIUS,
+    PLAYER_TURN_SPEED,
+    PLAYER_SPEED,
+    PLAYER_SHOOT_COOLDOWN,
+    SCREEN_WIDTH,
+    SCREEN_HEIGHT
+)
+from src.entities import CircleShape
 from src.entities.shot import Shot
 
 class Player(CircleShape):
