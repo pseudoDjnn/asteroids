@@ -4,8 +4,12 @@ SCREEN_HEIGHT = 720
 GAME_STATE = {
   "score": 0,
   "lives": 3,
-  "invincible": False
+  "invincible": False,
+  "invincible_timer": 0
+
 }
+
+INVINCIBILITY_DURATION = 3.0
 
 SMALL_ASTEROID_POINT = 5
 MEDIUM_ASTEROID_POINT = 10

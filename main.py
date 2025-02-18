@@ -3,7 +3,7 @@
 # throughout this file
 import pygame
 
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, GAME_STATE
+from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
@@ -70,6 +70,12 @@ def main():
         
         updatable.update(dt)
         
+        # Timer set for being invisible
+        if GAME_STATE["invincible"]:
+            GAME_STATE["invincible_timer"] -= dt
+            if GAME_STATE["invincible_timer"] <= 0:
+                GAME_STATE["invincible"] = False
+        
         # Collison Detection
         for asteroid in asteroids:
             if player.collides_with(asteroid):
@@ -78,6 +84,7 @@ def main():
                     if GAME_STATE["lives"] > 0:
                         player.respawn()
                         GAME_STATE["invincible"] = True
+                        GAME_STATE["invincible_timer"] = INVINCIBILITY_DURATION
                     else:
                         print("Game Over!")
                         return # exit the program
