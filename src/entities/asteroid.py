@@ -2,7 +2,7 @@ import pygame
 import random
 
 from src.entities import CircleShape
-from src.utils import ASTEROID_MIN_RADIUS, GAME_STATE, SMALL_ASTEROID_POINT,MEDIUM_ASTEROID_POINT, LARGE_ASTEROID_POINT
+from src.utils import ASTEROID_MIN_RADIUS, GAME_STATE, SCREEN_WIDTH, SCREEN_HEIGHT, SMALL_ASTEROID_POINT,MEDIUM_ASTEROID_POINT, LARGE_ASTEROID_POINT
 
 class Asteroid(CircleShape):
   def __init__(self, x, y, radius):
@@ -10,9 +10,6 @@ class Asteroid(CircleShape):
     
   def draw(self,screen):
     pygame.draw.circle(screen,"white",self.position,self.radius,2)
-    
-  def update(self, dt):
-    self.position += self.velocity * dt
     
   def split(self):
     
@@ -54,3 +51,17 @@ class Asteroid(CircleShape):
       asteroid2.add(self.containers)
       
     # print(f"Asteroid splt into two  smaller asteroids at positions {asteroid1.position} and {asteroid2.position}")
+    
+  def update(self, dt):
+    self.position += self.velocity * dt
+    
+    # Screen wrapping logic
+    if self.position.x < 0:
+        self.position.x = SCREEN_WIDTH
+    elif self.position.x > SCREEN_WIDTH:
+        self.position.x = 0
+
+    if self.position.y < 0:
+        self.position.y = SCREEN_HEIGHT
+    elif self.position.y > SCREEN_HEIGHT:
+        self.position.y = 0

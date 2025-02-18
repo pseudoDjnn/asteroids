@@ -1,7 +1,7 @@
 import pygame
 
 from src.entities.circleshape import CircleShape
-from src.utils.constants import SHOT_RADIUS, PLAYER_SHOOT_SPEED
+from src.utils.constants import SCREEN_HEIGHT,SCREEN_WIDTH, SHOT_RADIUS, PLAYER_SHOOT_SPEED
 
 
 class Shot(CircleShape):
@@ -15,3 +15,7 @@ class Shot(CircleShape):
     
   def update(self, dt):
     self.position += self.velocity * dt
+    
+    # Inside Shot's update method
+    if self.position.x < 0 or self.position.x > SCREEN_WIDTH or self.position.y < 0 or self.position.y > SCREEN_HEIGHT:
+      self.kill()
