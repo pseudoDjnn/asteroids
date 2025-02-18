@@ -7,7 +7,8 @@ from src.utils import (
     PLAYER_SHOOT_COOLDOWN,
     SCREEN_WIDTH,
     SCREEN_HEIGHT,
-    MAX_SPEED
+    MAX_SPEED,
+    PLAYER_ACCELERATION
 )
 from src.entities import CircleShape
 from src.entities.shot import Shot
@@ -44,18 +45,25 @@ class Player(CircleShape):
     
     
   def move(self, dt):
-
     # Get direction vector based on rotation
     forward = pygame.Vector2(0, 1).rotate(self.rotation)
     
-    # Apply acceleration in that direction
-    self.velocity += forward * PLAYER_SPEED * dt
-    
-    # Optional: Limit maximum speed
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_w]:
+        # Forward thrust
+        self.velocity += forward * PLAYER_ACCELERATION
+    elif keys[pygame.K_s]:
+        # Reverse thrust (half speed)
+        self.velocity = -forward * -PLAYER_ACCELERATION * 0.5
+    else:
+        # Slowdown when not thrusting
+        self.velocity *= 0.9999995
+        
+        # Optional: Add after velocity changes
     if self.velocity.length() > MAX_SPEED:
-      self.velocity.scale_to_length(MAX_SPEED)
+        self.velocity.scale_to_length(MAX_SPEED)
     
-    # Update position based on velocity
+    # Update position
     self.position += self.velocity * dt
     
     
