@@ -1,7 +1,7 @@
 import pygame
 
-from src.entities.circleshape import CircleShape
-from src.utils.constants import SCREEN_HEIGHT,SCREEN_WIDTH, SHOT_RADIUS, PLAYER_SHOOT_SPEED
+from src.entities import CircleShape
+from src.utils import SCREEN_HEIGHT,SCREEN_WIDTH, SHOT_RADIUS, PLAYER_SHOOT_SPEED
 
 
 class Shot(CircleShape):

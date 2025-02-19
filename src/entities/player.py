@@ -8,7 +8,9 @@ from src.utils import (
     SCREEN_WIDTH,
     SCREEN_HEIGHT,
     MAX_SPEED,
-    PLAYER_ACCELERATION
+    PLAYER_ACCELERATION,
+    ROTATION_ACCELERATION,
+    MAX_ROTATION_SPEED
 )
 from src.entities import CircleShape
 from src.entities.shot import Shot
@@ -21,6 +23,7 @@ class Player(CircleShape):
     self.rotation = 0
     self.shot_timer = 0
     self.velocity = pygame.Vector2(0, 0)
+    self.angular_velocity = 0
     
     # in the player class
   def triangle(self):
@@ -41,7 +44,18 @@ class Player(CircleShape):
       
   def rotate(self, dt):
     
-    self.rotation += PLAYER_TURN_SPEED * dt
+    keys = pygame.key.get_pressed()
+    # If switching directions, reduce existing angular velocity
+    if (keys[pygame.K_a] and self.angular_velocity > 0) or (keys[pygame.K_d] and self.angular_velocity < 0):
+        self.angular_velocity *= 0.85  # Helps cancel out opposite momentum faster
+    
+    self.angular_velocity += ROTATION_ACCELERATION * dt
+    self.angular_velocity *= 0.97
+    
+    if abs(self.angular_velocity) > MAX_ROTATION_SPEED:
+        self.angular_velocity = MAX_ROTATION_SPEED * (self.angular_velocity / abs(self.angular_velocity))
+    
+    self.rotation += self.angular_velocity
     
     
   def move(self, dt):
@@ -66,13 +80,10 @@ class Player(CircleShape):
     
     
   def shoot(self):
-    # print("Shooting!")
     direction = pygame.Vector2(0, 1)
-    
     direction = direction.rotate(self.rotation)
     
     Shot(self.position.x, self.position.y, direction)
-    
     self.shot_timer = PLAYER_SHOOT_COOLDOWN  # Set the cooldown timer
     
     
@@ -85,16 +96,14 @@ class Player(CircleShape):
     
   def update(self, dt):
     keys = pygame.key.get_pressed()
-    
     self.shot_timer -= dt
 
     if keys[pygame.K_a]:
-      
       self.rotate(-dt)
         
     if keys[pygame.K_d]:
-      
       self.rotate(dt)
+        
         
     self.move(dt)
         

@@ -12,9 +12,6 @@ class Asteroid(CircleShape):
     pygame.draw.circle(screen,"white",self.position,self.radius,2)
     
   def split(self):
-    
-    global SCORE
-    
     # Increment score based on size:
     if self.radius > ASTEROID_MIN_RADIUS * 2:
       GAME_STATE["score"] += LARGE_ASTEROID_POINT
