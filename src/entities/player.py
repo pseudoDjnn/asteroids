@@ -45,21 +45,19 @@ class Player(CircleShape):
     
     
   def move(self, dt):
-    # Get direction vector based on rotation
-    forward = pygame.Vector2(0, 1).rotate(self.rotation)
-    
     keys = pygame.key.get_pressed()
+    
     if keys[pygame.K_w]:
-        # Forward thrust
-        self.velocity += forward * PLAYER_ACCELERATION
+        forward = pygame.Vector2(0, 1).rotate(self.rotation)
+        self.velocity += forward * PLAYER_ACCELERATION * dt
     elif keys[pygame.K_s]:
-        # Reverse thrust (half speed)
-        self.velocity = -forward * -PLAYER_ACCELERATION * 0.5
-    else:
-        # Slowdown when not thrusting
-        self.velocity *= 0.9999995
-        
-        # Optional: Add after velocity changes
+        forward = pygame.Vector2(0, 1).rotate(self.rotation)
+        self.velocity += -forward * PLAYER_ACCELERATION * 0.8 * dt
+    
+    # Always apply velocity decay (outside the if/elif)
+    self.velocity *= 0.990
+    
+    # Speed limit check
     if self.velocity.length() > MAX_SPEED:
         self.velocity.scale_to_length(MAX_SPEED)
     
@@ -98,13 +96,7 @@ class Player(CircleShape):
       
       self.rotate(dt)
         
-    if keys[pygame.K_w]:
-
-      self.move(dt)
-        
-    if keys[pygame.K_s]:
-
-      self.move(-dt)
+    self.move(dt)
         
     if keys[pygame.K_SPACE]:
       
