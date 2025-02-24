@@ -113,9 +113,14 @@ def main():
                 if bullet.collides_with(asteroid):
                     # print(f"Bullet hit asteroid at {asteroid.position}")
                     bullet.kill()
-                    
-
                     asteroid.split()
+                    
+                # Asteroid-Asteroid collision detection
+        for i, asteroid1 in enumerate(asteroids):
+            # Use list slice to avoid checking same pairs twice
+            for asteroid2 in list(asteroids)[i + 1:]:
+                if asteroid1.collides_with(asteroid2):
+                    asteroid1.handle_collision(asteroid2)
                     
         
         

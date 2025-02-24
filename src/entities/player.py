@@ -69,7 +69,7 @@ class Player(CircleShape):
         self.velocity += -forward * PLAYER_ACCELERATION * 0.8 * dt
     
     # Always apply velocity decay (outside the if/elif)
-    self.velocity *= 0.990
+    self.velocity *= 0.993
     
     # Speed limit check
     if self.velocity.length() > MAX_SPEED:
@@ -99,10 +99,10 @@ class Player(CircleShape):
     self.shot_timer -= dt
 
     if keys[pygame.K_a]:
-      self.rotate(-dt)
+      self.rotate(-dt * 3)
         
     if keys[pygame.K_d]:
-      self.rotate(dt)
+      self.rotate(dt * 3)
         
         
     self.move(dt)
