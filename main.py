@@ -89,6 +89,7 @@ def main():
         
         
         # Background
+        starfield.update(dt)
         starfield.draw(screen)
 
 

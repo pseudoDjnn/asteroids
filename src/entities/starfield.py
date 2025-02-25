@@ -7,6 +7,12 @@ from src.entities import CircleShape
 class Star(CircleShape):
   def __init__(self, x, y, radius, speed):
     super().__init__(x, y, radius,)
+    self.speed = speed
+    
+  
+  def update(self, dt):
+    self.position.y += self.speed * dt
+    # print(f"Position: {self.position}, Speed: {self.speed}, dt: {dt}")
 
 
 class Starfield():
@@ -26,4 +32,4 @@ class Starfield():
   
   def update(self, dt):
     for star in self.stars:
-      pass
+      star.update(dt)
