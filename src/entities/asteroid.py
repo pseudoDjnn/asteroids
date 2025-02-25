@@ -1,3 +1,4 @@
+import math
 import pygame
 import random
 
@@ -7,9 +8,24 @@ from src.utils import ASTEROID_MIN_RADIUS, GAME_STATE, SCREEN_WIDTH, SCREEN_HEIG
 class Asteroid(CircleShape):
   def __init__(self, x, y, radius):
     super().__init__(x, y, radius)
+    self.num_vertices = random.randint(8, 12)  # Store this as instance variable
+    self.offsets = []  # Store the random offsets
+    for _ in range(self.num_vertices):
+        self.offsets.append(random.uniform(-self.radius * 0.3, self.radius * 0.3))
+    self.angle = 0
+    self.angle_rotation = random.uniform(-0.5, 0.5)
+
     
-  def draw(self,screen):
-    pygame.draw.circle(screen,"white",self.position,self.radius,2)
+  def draw(self, screen):
+    # pygame.draw.circle(screen,"white",self.position,self.radius,2)
+        vertices = []
+        for i in range(self.num_vertices):
+            angle = (2 * math.pi * i / self.num_vertices) + self.angle
+            r = self.radius + self.offsets[i]
+            x = self.position.x + r * math.cos(angle)
+            y = self.position.y + r * math.sin(angle)
+            vertices.append((x, y))
+        pygame.draw.polygon(screen, "grey", vertices, 2)
     
   def split(self):
     # Increment score based on size:
@@ -65,6 +81,11 @@ class Asteroid(CircleShape):
             other.position -= normal * 1
     
   def update(self, dt):
+    
+    # Rotate the radius
+    self.angle += self.angle_rotation * dt
+    
+    # Existing movement
     self.position += self.velocity * dt
     
     # Screen wrapping logic

@@ -39,7 +39,7 @@ class Player(CircleShape):
     
   def draw(self, screen):
     
-      pygame.draw.polygon(screen, "white", self.triangle(), 2)
+      pygame.draw.polygon(screen, "grey", self.triangle(), 2)
       
       
   def rotate(self, dt):
@@ -69,7 +69,7 @@ class Player(CircleShape):
         self.velocity += -forward * PLAYER_ACCELERATION * 0.8 * dt
     
     # Always apply velocity decay (outside the if/elif)
-    self.velocity *= 0.993
+    self.velocity *= 0.987
     
     # Speed limit check
     if self.velocity.length() > MAX_SPEED:

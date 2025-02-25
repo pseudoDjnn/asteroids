@@ -115,7 +115,7 @@ def main():
                     bullet.kill()
                     asteroid.split()
                     
-                # Asteroid-Asteroid collision detection
+        # Asteroid-Asteroid collision detection
         for i, asteroid1 in enumerate(asteroids):
             # Use list slice to avoid checking same pairs twice
             for asteroid2 in list(asteroids)[i + 1:]:
