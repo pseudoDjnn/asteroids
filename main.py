@@ -4,7 +4,7 @@
 import pygame
 
 from src.utils import *
-from src.entities import Player, Asteroid, Shot
+from src.entities import Player, Asteroid, Shot, Starfield
 from src.systems import AsteroidField
 
 
@@ -26,13 +26,14 @@ def main():
     
     font = pygame.font.Font(None, 36)
     
-    # global SCORE
-    
     #Create Groups
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
     bullets = pygame.sprite.Group()
+    
+    # Background
+    starfield = Starfield(1)    
 
     
     
@@ -85,6 +86,10 @@ def main():
         screen.blit(lives_text, (lives_x_p, lives_y_p))
         
         updatable.update(dt)
+        
+        
+        # Background
+        starfield.draw(screen)
 
 
         
