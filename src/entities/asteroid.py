@@ -8,10 +8,10 @@ from src.utils import ASTEROID_MIN_RADIUS, GAME_STATE, SCREEN_WIDTH, SCREEN_HEIG
 class Asteroid(CircleShape):
   def __init__(self, x, y, radius):
     super().__init__(x, y, radius)
-    self.num_vertices = random.randint(8, 12)  # Store this as instance variable
+    self.num_vertices = random.randint(8, 13)  # Store this as instance variable
     self.offsets = []  # Store the random offsets
     for _ in range(self.num_vertices):
-        self.offsets.append(random.uniform(-self.radius * 0.3, self.radius * 0.3))
+        self.offsets.append(random.uniform(-self.radius * 0.13, self.radius * 0.13))
     self.angle = 0
     self.angle_rotation = random.uniform(-0.5, 0.5)
 

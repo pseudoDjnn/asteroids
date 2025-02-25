@@ -12,7 +12,12 @@ class Star(CircleShape):
   
   def update(self, dt):
     self.position.y += self.speed * dt
-    # print(f"Position: {self.position}, Speed: {self.speed}, dt: {dt}")
+    
+    # Screen wrapping
+    if self.position.y < 0:
+      self.position.y = SCREEN_HEIGHT
+    elif self.position.y > SCREEN_HEIGHT:
+      self.position.y = 0
 
 
 class Starfield():
