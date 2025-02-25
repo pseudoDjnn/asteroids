@@ -66,19 +66,19 @@ class Asteroid(CircleShape):
     # print(f"Asteroid splt into two  smaller asteroids at positions {asteroid1.position} and {asteroid2.position}")
     
   def handle_collision(self, other):
-        # Get collision normal
-        collision_vector = self.position - other.position
-        if collision_vector.length() > 0:
-            normal = collision_vector.normalize()
-            
-            # Swap velocities with some loss of energy
-            temp_velocity = self.velocity
-            self.velocity = other.velocity 
-            other.velocity = temp_velocity 
-            
-            # Push apart to prevent sticking
-            self.position += normal * 1
-            other.position -= normal * 1
+    # Get collision normal
+    collision_vector = self.position - other.position
+    if collision_vector.length() > 0:
+        normal = collision_vector.normalize()
+        
+        # Swap velocities with some loss of energy
+        temp_velocity = self.velocity
+        self.velocity = other.velocity 
+        other.velocity = temp_velocity 
+        
+        # Push apart to prevent sticking
+        self.position += normal * 1
+        other.position -= normal * 1
     
   def update(self, dt):
     
