@@ -25,6 +25,8 @@ class Player(CircleShape):
     self.velocity = pygame.Vector2(0, 0)
     self.angular_velocity = 0
     
+    # Health Bar for player
+    
     # in the player class
   def triangle(self):
     

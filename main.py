@@ -60,11 +60,11 @@ def main():
         
         # Background
         starfield_far.update(dt * 0.1)
-        # starfield_mid.update(dt * 1.0)
+        starfield_mid.update(dt * 2.0)
         # starfield_near.update(dt * 1.5)
         updatable.update(dt)
         starfield_far.draw(screen)
-        # starfield_mid.draw(screen)
+        starfield_mid.draw(screen)
         # starfield_near.draw(screen)
 
         
