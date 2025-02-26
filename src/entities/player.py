@@ -1,16 +1,17 @@
 import pygame
 
 from src.utils import (
-    PLAYER_RADIUS,
-    PLAYER_TURN_SPEED,
-    PLAYER_SPEED,
-    PLAYER_SHOOT_COOLDOWN,
-    SCREEN_WIDTH,
-    SCREEN_HEIGHT,
-    MAX_SPEED,
-    PLAYER_ACCELERATION,
-    ROTATION_ACCELERATION,
-    MAX_ROTATION_SPEED
+  GAME_STATE,
+  PLAYER_RADIUS,
+  PLAYER_TURN_SPEED,
+  PLAYER_SPEED,
+  PLAYER_SHOOT_COOLDOWN,
+  SCREEN_WIDTH,
+  SCREEN_HEIGHT,
+  MAX_SPEED,
+  PLAYER_ACCELERATION,
+  ROTATION_ACCELERATION,
+  MAX_ROTATION_SPEED
 )
 from src.entities import CircleShape
 from src.entities.shot import Shot
@@ -94,13 +95,21 @@ class Player(CircleShape):
     
     
   def take_damage(self, amount):
-    # pass
+    if GAME_STATE["invincible"]:
+      return
+    
+    
     self.health -= amount
     
-    if self.health <= 0:
+    if self.health <= 0 :
+      self._lose_life()
+      
+  def _lose_life(self):
       self.lives -= 1
       if self.lives > 0:
         self.respawn()
+        GAME_STATE["invincible"] = True
+        GAME_STATE["invincible_timer"] = 0
       else:
         self.kill()
     

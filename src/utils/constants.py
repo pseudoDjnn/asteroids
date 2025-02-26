@@ -3,6 +3,7 @@ SCREEN_HEIGHT = 720
 
 GAME_STATE = {
   "score": 0,
+  "health": 5,
   "lives": 3,
   "invincible": False,
   "invincible_timer": 0
