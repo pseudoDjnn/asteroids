@@ -28,6 +28,7 @@ class Player(CircleShape):
     # Health Bar for player
     self.max_health = 5
     self.health = self.max_health
+    self.lives = 3
     
     # in the player class
   def triangle(self):
@@ -93,7 +94,15 @@ class Player(CircleShape):
     
     
   def take_damage(self, amount):
-    pass
+    # pass
+    self.health -= amount
+    
+    if self.health <= 0:
+      self.lives -= 1
+      if self.lives > 0:
+        self.respawn()
+      else:
+        self.kill()
     
     
   def respawn(self):
