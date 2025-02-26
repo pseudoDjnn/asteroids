@@ -17,14 +17,17 @@ class Asteroid(CircleShape):
 
     
   def draw(self, screen):
-    # pygame.draw.circle(screen,"white",self.position,self.radius,2)
         vertices = []
+        
         for i in range(self.num_vertices):
+          
             angle = (2 * math.pi * i / self.num_vertices) + self.angle
+
             r = self.radius + self.offsets[i]
             x = self.position.x + r * math.cos(angle)
             y = self.position.y + r * math.sin(angle)
             vertices.append((x, y))
+        pygame.draw.polygon(screen, (0, 0, 0, 0), vertices, 0)
         pygame.draw.polygon(screen, "grey", vertices, 2)
     
   def split(self):

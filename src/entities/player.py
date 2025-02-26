@@ -39,6 +39,7 @@ class Player(CircleShape):
     
   def draw(self, screen):
     
+      pygame.draw.polygon(screen, (0, 0, 0, 0), self.triangle(), 0)
       pygame.draw.polygon(screen, "grey", self.triangle(), 2)
       
       
