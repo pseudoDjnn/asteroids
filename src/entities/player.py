@@ -26,6 +26,8 @@ class Player(CircleShape):
     self.angular_velocity = 0
     
     # Health Bar for player
+    self.max_health = 5
+    self.health = self.max_health
     
     # in the player class
   def triangle(self):
@@ -90,11 +92,16 @@ class Player(CircleShape):
     self.shot_timer = PLAYER_SHOOT_COOLDOWN  # Set the cooldown timer
     
     
+  def take_damage(self, amount):
+    pass
+    
+    
   def respawn(self):
       
     self.position = pygame.math.Vector2(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
     self.velocity = pygame.Vector2(0, 0)
     self.rotation = 0
+    self.health = self.max_health
     
     
   def update(self, dt):
