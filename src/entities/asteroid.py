@@ -27,8 +27,8 @@ class Asteroid(CircleShape):
             x = self.position.x + r * math.cos(angle)
             y = self.position.y + r * math.sin(angle)
             vertices.append((x, y))
-        pygame.draw.polygon(screen, (0, 0, 0, 0), vertices, 0)
-        pygame.draw.polygon(screen, "grey", vertices, 2)
+        pygame.draw.polygon(screen, (13, 13, 13, 13), vertices, 0)
+        pygame.draw.polygon(screen, (0, 0, 0, 0), vertices, 2)
     
   def split(self):
     # Increment score based on size:

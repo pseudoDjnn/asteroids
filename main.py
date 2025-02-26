@@ -33,7 +33,9 @@ def main():
     bullets = pygame.sprite.Group()
     
     # Background
-    starfield = Starfield(1)    
+    starfield_far = Starfield(radius=1)    
+    starfield_mid = Starfield(radius=2)    
+    starfield_near = Starfield(radius=3)    
 
     
     
@@ -57,9 +59,13 @@ def main():
         screen.fill("black")
         
         # Background
-        starfield.update(dt)
+        starfield_far.update(dt * 0.1)
+        # starfield_mid.update(dt * 1.0)
+        # starfield_near.update(dt * 1.5)
         updatable.update(dt)
-        starfield.draw(screen)
+        starfield_far.draw(screen)
+        # starfield_mid.draw(screen)
+        # starfield_near.draw(screen)
 
         
         # Timer set for being invisible

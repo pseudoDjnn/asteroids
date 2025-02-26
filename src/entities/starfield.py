@@ -1,5 +1,7 @@
 import pygame
 import random
+import math
+
 from src.utils.constants import SCREEN_WIDTH, SCREEN_HEIGHT,STAR_COUNT, STAR_MIN_SPEED, STAR_MAX_SPEED
 from src.entities import CircleShape
 
@@ -8,6 +10,7 @@ class Star(CircleShape):
   def __init__(self, x, y, radius, speed):
     super().__init__(x, y, radius,)
     self.speed = speed
+    
     
   
   def update(self, dt):
