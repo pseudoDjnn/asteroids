@@ -26,10 +26,14 @@ class Player(CircleShape):
     self.velocity = pygame.Vector2(0, 0)
     self.angular_velocity = 0
     
-    # Health Bar for player
+    # Health for player
     self.max_health = 5
     self.health = self.max_health
     self.lives = 3
+    # Health bar for player
+    self.show_damage_bar = False
+    self.damage_bar_timer = 0
+    self.damage_bar_alpha = 255
     
     # in the player class
   def triangle(self):
@@ -45,8 +49,45 @@ class Player(CircleShape):
     
   def draw(self, screen):
     
-      pygame.draw.polygon(screen, (0, 0, 0, 0), self.triangle(), 0)
-      pygame.draw.polygon(screen, "grey", self.triangle(), 2)
+    # This will draw the sprite as normal
+    super().draw(screen)
+    
+    # Update the health bar visibility
+    # if GAME_STATE["health"] < 5:
+    #   self.show_damage_bar = True
+    #   self.damage_bar_timer = 2
+    #   self.damage_bar_alpha = 255
+      
+    # Hand the health bar fade
+    if self.show_damage_bar:
+      # print("Drawing damage bar")
+      self.damage_bar_timer -= 1/60
+      
+      if self.damage_bar_timer <= 0:
+        self.damage_bar_alpha -= 5
+        
+        if self.damage_bar_alpha <= 0:
+          self.show_damage_bar = False
+          self. damage_bar_alpha = 255
+          return
+        
+      # Create surface for health bar with transparency
+      bar_width = 40
+      bar_height = 5
+      bar_surface = pygame.Surface((bar_width, bar_height), pygame.SRCALPHA)
+      
+      # Draw bars with alpha
+      health_width = (GAME_STATE["health"] / 5) * bar_width
+      red_alpha = (255, 0, 0, self.damage_bar_alpha)
+      pygame.draw.rect(bar_surface, red_alpha, (0, 0, health_width, bar_height))
+
+      # Position and draw th ebar surface
+      bar_x = self.position.x - bar_width / 2
+      bar_y = self.position.y - self.radius - 20
+      screen.blit(bar_surface, (bar_x, bar_y))
+    
+    pygame.draw.polygon(screen, (0, 0, 0, 0), self.triangle(), 0)
+    pygame.draw.polygon(screen, "grey", self.triangle(), 2)
       
       
   def rotate(self, dt):

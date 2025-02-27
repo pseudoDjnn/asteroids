@@ -78,24 +78,29 @@ def main():
         for asteroid in asteroids:
             if player.collides_with(asteroid):
                 if not GAME_STATE['invincible']:
+                    # print("Hit! Health:", GAME_STATE["health"])
                     GAME_STATE["invincible"] = True
                     GAME_STATE["invincible_timer"] = INVINCIBILITY_DURATION
                     # Make sure to decrease health by 1
                     GAME_STATE["health"] -= 1
+                    player.show_damage_bar = True
+                    player.damage_bar_timer = 1
+                    player.damage_bar_alpha = 255
                     
                     # If all health is gone then handle respawn lives
                     if GAME_STATE["health"] <= 0:
                         GAME_STATE["lives"] -= 1
                         # Reset the health back to 5
-                        GAME_STATE["health"] = 5
+                        GAME_STATE["health"] = player.max_health
                         
                         if GAME_STATE["lives"] > 0:
                             player.respawn()
                             GAME_STATE["invincible"] = True
                             GAME_STATE["invincible_timer"] = INVINCIBILITY_DURATION
                         else:
+                            # exit the program
                             print("Game Over!")
-                            return # exit the program
+                            return 
             
         # Bullet-Asteroid detection
         for bullet in bullets:
