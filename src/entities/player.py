@@ -51,12 +51,6 @@ class Player(CircleShape):
     
     # This will draw the sprite as normal
     super().draw(screen)
-    
-    # Update the health bar visibility
-    # if GAME_STATE["health"] < 5:
-    #   self.show_damage_bar = True
-    #   self.damage_bar_timer = 2
-    #   self.damage_bar_alpha = 255
       
     # Hand the health bar fade
     if self.show_damage_bar:
